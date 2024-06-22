@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Virtual Air Paint</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+</head>
+<body>
+    <h2>Welcome to Virtual Air Paint</h2>
+    <p class="p1">powered by <span style="color: white; font-family: sans-serif;">OpenCV and Mediapipe</span></p>
+    <img id="bg" width="1280" height="720" src="{{ url_for('video_feed') }}">
+</body>
+</html>
