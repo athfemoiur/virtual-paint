@@ -1,16 +1,19 @@
 import cv2
-import time
 import mediapipe as mp
 
+
 class handDetector:
-    def __init__(self, image_mode=False, max_num_hands=3, min_detection_confidence=0.5, min_tracking_confidence=0.5):
+    def __init__(self, image_mode=False, max_num_hands=3, min_detection_confidence=0.5,
+                 min_tracking_confidence=0.5):
         self.image_mode = image_mode
         self.max_num_hands = max_num_hands
         self.min_detection_confidence = min_detection_confidence
         self.min_tracking_confidence = min_tracking_confidence
 
         self.mphands = mp.solutions.hands
-        self.hands = self.mphands.Hands(self.image_mode, self.max_num_hands, 1, self.min_detection_confidence, self.min_tracking_confidence)
+        self.hands = self.mphands.Hands(self.image_mode, self.max_num_hands, 1,
+                                        self.min_detection_confidence,
+                                        self.min_tracking_confidence)
         self.mpdraw = mp.solutions.drawing_utils
         self.finger_tip_id = [4, 8, 12, 16, 20]
 

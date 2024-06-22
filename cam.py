@@ -4,6 +4,7 @@ import os
 import track_hands as TH
 import pyttsx3
 
+
 class VideoCamera():
     def __init__(self, overlay_image=[], draw_color=(255, 200, 100)):
         self.cap = cv2.VideoCapture(0)
@@ -49,7 +50,8 @@ class VideoCamera():
 
             if self.detector.isFist():
                 self.image_canvas = np.zeros((720, 1280, 3), np.uint8)
-                cv2.putText(frame, "Canvas Cleared", (900, 680), fontFace=cv2.FONT_HERSHEY_COMPLEX, color=(255, 0, 0), thickness=2, fontScale=1)
+                cv2.putText(frame, "Canvas Cleared", (900, 680), fontFace=cv2.FONT_HERSHEY_COMPLEX,
+                            color=(255, 0, 0), thickness=2, fontScale=1)
                 self.speak("Canvas cleared")
 
             my_fingers = self.detector.fingerStatus()
@@ -60,49 +62,67 @@ class VideoCamera():
                         self.default_overlay = overlay_image[0]
                         frame[0:125, 0:1280] = self.default_overlay
                         self.draw_color = (255, 0, 0)
-                        cv2.putText(frame, "Color Changed to Blue", (10, 70), fontFace=cv2.FONT_HERSHEY_COMPLEX, color=(255, 0, 0), thickness=2, fontScale=1)
+                        cv2.putText(frame, "Color Changed to Blue", (10, 70),
+                                    fontFace=cv2.FONT_HERSHEY_COMPLEX, color=(255, 0, 0),
+                                    thickness=2, fontScale=1)
                         self.speak("Color changed to blue")
                     elif 340 < self.x1 < 500:
                         self.default_overlay = overlay_image[1]
                         self.draw_color = (47, 225, 245)
                         frame[0:125, 0:1280] = self.default_overlay
-                        cv2.putText(frame, "Color Changed to Cyan", (10, 70), fontFace=cv2.FONT_HERSHEY_COMPLEX, color=(47, 225, 245), thickness=2, fontScale=1)
+                        cv2.putText(frame, "Color Changed to Cyan", (10, 70),
+                                    fontFace=cv2.FONT_HERSHEY_COMPLEX, color=(47, 225, 245),
+                                    thickness=2, fontScale=1)
                         self.speak("Color changed to cyan")
                     elif 500 < self.x1 < 640:
                         self.default_overlay = overlay_image[2]
                         self.draw_color = (197, 47, 245)
                         frame[0:125, 0:1280] = self.default_overlay
-                        cv2.putText(frame, "Color Changed to Purple", (10, 70), fontFace=cv2.FONT_HERSHEY_COMPLEX, color=(197, 47, 245), thickness=2, fontScale=1)
+                        cv2.putText(frame, "Color Changed to Purple", (10, 70),
+                                    fontFace=cv2.FONT_HERSHEY_COMPLEX, color=(197, 47, 245),
+                                    thickness=2, fontScale=1)
                         self.speak("Color changed to purple")
                     elif 640 < self.x1 < 780:
                         self.default_overlay = overlay_image[3]
                         self.draw_color = (53, 245, 47)
                         frame[0:125, 0:1280] = self.default_overlay
-                        cv2.putText(frame, "Color Changed to Green", (10, 70), fontFace=cv2.FONT_HERSHEY_COMPLEX, color=(53, 245, 47), thickness=2, fontScale=1)
+                        cv2.putText(frame, "Color Changed to Green", (10, 70),
+                                    fontFace=cv2.FONT_HERSHEY_COMPLEX, color=(53, 245, 47),
+                                    thickness=2, fontScale=1)
                         self.speak("Color changed to green")
                     elif 1100 < self.x1 < 1280:
                         self.default_overlay = overlay_image[4]
                         self.draw_color = (0, 0, 0)
                         frame[0:125, 0:1280] = self.default_overlay
-                        cv2.putText(frame, "Eraser Selected", (10, 70), fontFace=cv2.FONT_HERSHEY_COMPLEX, color=(0, 0, 0), thickness=2, fontScale=1)
+                        cv2.putText(frame, "Eraser Selected", (10, 70),
+                                    fontFace=cv2.FONT_HERSHEY_COMPLEX, color=(0, 0, 0),
+                                    thickness=2, fontScale=1)
                         self.speak("Eraser selected")
 
-                cv2.putText(frame, 'Color Selector Mode', (900, 680), fontFace=cv2.FONT_HERSHEY_COMPLEX, color=(0, 255, 255), thickness=2, fontScale=1)
-                cv2.line(frame, (self.x1, self.y1), (self.x2, self.y2), color=self.draw_color, thickness=3)
+                cv2.putText(frame, 'Color Selector Mode', (900, 680),
+                            fontFace=cv2.FONT_HERSHEY_COMPLEX, color=(0, 255, 255), thickness=2,
+                            fontScale=1)
+                cv2.line(frame, (self.x1, self.y1), (self.x2, self.y2), color=self.draw_color,
+                         thickness=3)
 
             if my_fingers[1] and not my_fingers[2]:
-                cv2.putText(frame, "Writing Mode", (900, 680), fontFace=cv2.FONT_HERSHEY_COMPLEX, color=(255, 255, 0), thickness=2, fontScale=1)
+                cv2.putText(frame, "Writing Mode", (900, 680), fontFace=cv2.FONT_HERSHEY_COMPLEX,
+                            color=(255, 255, 0), thickness=2, fontScale=1)
                 cv2.circle(frame, (self.x1, self.y1), 15, self.draw_color, thickness=-1)
 
                 if self.xp == 0 and self.yp == 0:
                     self.xp, self.yp = self.x1, self.y1
 
                 if self.draw_color == (0, 0, 0):
-                    cv2.line(frame, (self.xp, self.yp), (self.x1, self.y1), color=self.draw_color, thickness=self.eraser_thickness)
-                    cv2.line(self.image_canvas, (self.xp, self.yp), (self.x1, self.y1), color=self.draw_color, thickness=self.eraser_thickness)
+                    cv2.line(frame, (self.xp, self.yp), (self.x1, self.y1), color=self.draw_color,
+                             thickness=self.eraser_thickness)
+                    cv2.line(self.image_canvas, (self.xp, self.yp), (self.x1, self.y1),
+                             color=self.draw_color, thickness=self.eraser_thickness)
                 else:
-                    cv2.line(frame, (self.xp, self.yp), (self.x1, self.y1), color=self.draw_color, thickness=self.brush_thickness)
-                    cv2.line(self.image_canvas, (self.xp, self.yp), (self.x1, self.y1), color=self.draw_color, thickness=self.brush_thickness)
+                    cv2.line(frame, (self.xp, self.yp), (self.x1, self.y1), color=self.draw_color,
+                             thickness=self.brush_thickness)
+                    cv2.line(self.image_canvas, (self.xp, self.yp), (self.x1, self.y1),
+                             color=self.draw_color, thickness=self.brush_thickness)
 
                 self.xp, self.yp = self.x1, self.y1
 
@@ -115,6 +135,7 @@ class VideoCamera():
 
         _, jpeg = cv2.imencode('.jpg', frame)
         return jpeg.tobytes()
+
 
 def main():
     overlay_image = []
@@ -132,6 +153,7 @@ def main():
         my_frame = cam1.get_frame(overlay_image=overlay_image)
         cv2.imshow('out', my_frame)
         cv2.waitKey(1)
+
 
 if __name__ == "__main__":
     main()
