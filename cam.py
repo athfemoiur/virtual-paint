@@ -32,10 +32,11 @@ class VideoCamera():
         return frame
 
     def speak(self, message):
-        if message != self.last_message:
-            self.engine.say(message)
-            self.engine.runAndWait()
-            self.last_message = message
+        pass
+        # if message != self.last_message:
+        #     self.engine.say(message)
+        #     self.engine.runAndWait()
+        #     self.last_message = message
 
     def get_frame(self, overlay_image):
         _, frame = self.cap.read()
